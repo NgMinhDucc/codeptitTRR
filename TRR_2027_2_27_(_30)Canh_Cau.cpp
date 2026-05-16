@@ -45,8 +45,8 @@ void canhcau(){
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(0);
-    // freopen("TK.INP", "r", stdin);
-    // freopen("TK.OUT", "w", stdout);
+    freopen("TK.INP", "r", stdin);
+    freopen("TK.OUT", "w", stdout);
 
     cin >> n;
     a.assign(n + 1, vector<int>(n + 1));
