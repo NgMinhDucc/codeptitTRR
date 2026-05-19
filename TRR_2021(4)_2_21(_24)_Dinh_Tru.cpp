@@ -4,7 +4,7 @@ using namespace std;
 int n, cnt = 0;
 vector<vector<int>> a;
 vector<int> low, num;
-vector<bool> dt;
+set<int> dt;
 
 void tarjan(int u, int parent){
     cnt += 1;
@@ -20,7 +20,7 @@ void tarjan(int u, int parent){
                 tarjan(i, u);
                 low[u] = min(low[u], low[i]);
                 if (parent != 0 && low[i] >= num[u]){
-                    dt[u] = true; // da xac dinh duoc 1 dinh tru
+                    dt.insert(u);
                 }
             }
             else{
@@ -29,29 +29,7 @@ void tarjan(int u, int parent){
         }
     }
     if (parent == 0 && children >= 2){
-        dt[u] = true;
-    }
-}
-
-void dinhtru(){
-    for (int i = 1; i <= n; i++){
-        if (num[i] == 0){
-            tarjan(i, 0);
-        }
-    }
-
-    int dem = 0;
-    for (int i = 1; i <= n; i++){
-        if (dt[i]){
-            dem += 1;
-        }
-    }
-
-    cout << dem << "\n";
-    for (int i = 1; i <= n; i++){
-        if (dt[i]){
-            cout << i << " ";
-        }
+        dt.insert(u);
     }
 }
 
@@ -63,15 +41,23 @@ int main(){
 
     cin >> n;
     a.assign(n + 1, vector<int>(n + 1));
-    low.assign(n + 1, false);
-    num.assign(n + 1, false);
-    dt.assign(n + 1, false);
+    low.assign(n + 1, 0);
+    num.assign(n + 1, 0);
     for (int i = 1; i <= n; i++){
         for (int j = 1; j <= n; j++){
             cin >> a[i][j];
         }
     }
 
-    dinhtru();
+    for (int i = 1; i <= n; i++){
+        if (num[i] == 0){
+            tarjan(i, 0);
+        }
+    }
+
+    cout << dt.size() << "\n";
+    for (auto i : dt){
+        cout << i << " ";
+    }
     return 0;
 }
