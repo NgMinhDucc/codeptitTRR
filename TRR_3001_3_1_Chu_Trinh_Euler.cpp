@@ -92,9 +92,9 @@ int main(){
                     cnt += 1;
                 }
             }
-            if (cnt == 0) cout << 1;
-            else if (cnt == 2) cout << 2;
-            else cout << 0;
+            if (cnt == 0) cout << 1; // khong co dinh bac le --> euler
+            else if (cnt == 2) cout << 2; // co dung 2 dinh bac le --> nua euler
+            else cout << 0; // con lai
         }
     }
     if (t == 2){
