@@ -9,7 +9,7 @@ vector<vector<int>> nxt;
 void floyd(){
     for (int k = 1; k <= n; k++){ // dinh trung gian
         for (int i = 1; i <= n; i++){ // dinh nguon
-            for (int j = 1; j <= n; j++){ // dinh dich
+            for (int j = 1; j <= n; j++){ // dinh tiep theo
                 if (d[i][k] != INF && d[k][j] != INF && d[i][j] > d[i][k] + d[k][j]){
                     d[i][j] = d[i][k] + d[k][j];
                     nxt[i][j] = nxt[i][k];
@@ -38,7 +38,7 @@ int main(){
             }
             else if (x != 0 && x != 10000){
                 d[i][j] = x; // co canh noi
-                nxt[i][j] = j; // dinh dich
+                nxt[i][j] = j; // dinh tiep theo
             }
             else{
                 d[i][j] = INF; // khong co canh noi
