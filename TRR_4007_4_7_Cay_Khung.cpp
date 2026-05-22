@@ -30,6 +30,7 @@ bool unionn(int a, int b){
     if (a == b){
         return false; // chung cha --> cung tplt --> tao thanh chu trinh
     }
+    // chon tap hop nho hon de noi
     if (sz[a] < sz[b]){
         parent[a] = b;
         sz[b] += sz[a];
@@ -48,7 +49,7 @@ bool cmp(edge a, edge b){
 void kruskal(){
     vector<edge> mst;
     int d = 0;
-    stable_sort(begin(a), end(a), cmp);
+    stable_sort(begin(a), end(a), cmp); // chi sort theo w, giu nguyen thu tu nhap ban dau
     for (int i = 0; i < m; i++){
         if ((int)mst.size() == n - 1){
             break;
