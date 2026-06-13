@@ -1,55 +1,39 @@
-//https://code.ptit.edu.vn/student/question/TRR1007
-//1.7 Đồ thị
-
 #include <bits/stdc++.h>
 using namespace std;
-#define MAX 1005
-
-int status, n, m, A[MAX][MAX];
-vector<int> Deg;
-
-void option1() {
-    for(auto x : Deg) {
-        cout << x << " ";
-    }
-}
-
-void option2() {
-    cout << n << endl;
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            cout << A[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
-
-//sai input mau
 
 int main(){
     ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
+    cin.tie(0);
     freopen("DT.INP", "r", stdin);
     freopen("DT.OUT", "w", stdout);
 
-    cin >> status >> n;
-    for(int i = 0; i < n; i++){
-        int t; 
-        cin >> t;
-        Deg.push_back(t);
-        while(t --){
-            int x; 
+    int t, n;
+    cin >> t >> n;
+    vector<int> deg(n + 1, 0);
+    vector<vector<int>> a(n + 1, vector<int>(n + 1, 0));
+    for (int i = 1; i <= n; i++){
+        int k;
+        cin >> k;
+        deg[i] = k;
+        for (int j = 1; j <= k; j++){
+            int x;
             cin >> x;
-            A[i][x - 1] = 1;
-            A[x - 1][i] = 1;
+            a[i][x] = a[x][i] = 1;
         }
     }
-    if(status == 1){
-        option1();
-    } else {
-        option2();
+    if (t == 1){
+        for (int i = 1; i <= n; i++){
+            cout << deg[i] << " ";
+        }
+    }
+    if (t == 2){
+        cout << n << endl;
+        for (int i = 1; i <= n; i++){
+            for (int j = 1; j <= n; j++){
+                cout << a[i][j] << " ";
+            }
+            cout << endl;
+        }
     }
     return 0;
 }
