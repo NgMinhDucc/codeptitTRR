@@ -3,21 +3,21 @@ using namespace std;
 
 int t, n, u, v;
 vector<vector<int>> a;
-vector<int> parent;
 vector<bool> visited;
+vector<int> par;
 
 void bfs(int u){
     queue<int> qu;
     qu.push(u);
     visited[u] = true;
     while (!qu.empty()){
-        int v = qu.front();
+        int s = qu.front();
         qu.pop();
         for (int i = 1; i <= n; i++){
-            if (!visited[i] && a[v][i] == 1){
+            if (!visited[i] && a[s][i]){
                 qu.push(i);
                 visited[i] = true;
-                parent[i] = v;
+                par[i] = s;
             }
         }
     }
@@ -30,38 +30,37 @@ int main(){
     freopen("TK.OUT", "w", stdout);
 
     cin >> t >> n >> u >> v;
-    int cnt = 0;
     a.assign(n + 1, vector<int>(n + 1));
-    parent.resize(n + 1);
     visited.assign(n + 1, false);
+    par.assign(n + 1, 0);
     for (int i = 1; i <= n; i++){
         for (int j = 1; j <= n; j++){
             cin >> a[i][j];
         }
     }
-
     if (t == 1){
+        int cnt = 0;
         for (int i = 1; i <= n; i++){
-            if (i != u && i != v && a[u][i] && a[i][v]){
+            if (u != i && i != v && a[u][i] && a[i][v]){
                 cnt += 1;
             }
         }
         cout << cnt;
     }
-    if (t == 2){
+    else{
         bfs(u);
-        vector<int> path;
         if (!visited[v]){
             cout << 0;
         }
         else{
+            vector<int> d;
             while (u != v){
-                path.push_back(v);
-                v = parent[v];
+                d.push_back(v);
+                v = par[v];
             }
-            path.push_back(u);
-            for (int i = path.size() - 1; i >= 0; i--){
-                cout << path[i] << " ";
+            d.push_back(u);
+            for (int i = d.size() - 1; i >= 0; i--){
+                cout << d[i] << " ";
             }
         }
     }
