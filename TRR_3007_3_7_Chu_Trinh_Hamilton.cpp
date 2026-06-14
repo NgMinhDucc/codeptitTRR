@@ -4,56 +4,55 @@ using namespace std;
 int n, u;
 vector<vector<int>> a;
 vector<bool> visited;
-vector<int> path;
-vector<vector<int>> allpath;
+vector<int> d;
+vector<vector<int>> res;
 
 void hamilton(int pos, int cur){
-    if (pos == n){ // buoc cuoi cung
-        if (a[cur][u] == 1){ // kiem tra co duong quay ve dinh xuat phat khong
-            allpath.push_back(path);
-        }
-        return;
-    }
-    for (int i = 1; i <= n; i++){
-        if (a[cur][i] == 1 && !visited[i]){
-            visited[i] = true;
-            path[pos + 1] = i;
-            hamilton(pos + 1, i);
-            visited[i] = false; // tim duong di khac tai dinh hien tai
-        }
-    }
+	if (pos == n){
+		if (a[cur][u]){
+			res.push_back(d);
+		}
+		return;
+	}
+	for (int i = 1; i <= n; i++){
+		if (a[cur][i] && !visited[i]){
+			visited[i] = true;
+			d[pos + 1] = i;
+			hamilton(pos + 1, i);
+			visited[i] = false;
+		}
+	}
 }
 
 int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    freopen("CT.INP", "r", stdin);
-    freopen("CT.OUT", "w", stdout);
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	freopen("CT.INP", "r", stdin);
+	freopen("CT.OUT", "w", stdout);
 
-    cin >> n >> u;
-    a.assign(n + 1, vector<int>(n + 1));
-    visited.assign(n + 1, false);
-    path.assign(n + 1, 0);
-    for (int i = 1; i <= n; i++){
-        for (int j = 1; j <= n; j++){
-            cin >> a[i][j];
-        }
-    }
-
-    path[1] = u;
-    visited[u] = true;
-    hamilton(1, u);
-    if ((int)allpath.size() == 0){
-        cout << 0;
-    }
-    else{
-        for (int i = 0; i < (int)allpath.size(); i++){
-            for (int j = 1; j <= n; j++){
-                cout << allpath[i][j] << " ";
-            }
-            cout << u << "\n";
-        }
-        cout << allpath.size();
-    }
-    return 0;
+	cin >> n >> u;
+	a.assign(n + 1, vector<int>(n + 1));
+	visited.assign(n + 1, false);
+	d.assign(n + 1, 0);
+	for (int i = 1; i <= n; i++){
+		for (int j = 1; j <= n; j++){
+			cin >> a[i][j];
+		}
+	}
+	d[1] = u;
+	visited[u] = true;
+	hamilton(1, u);
+	if ((int)res.size() == 0){
+		cout << 0;
+	}
+	else{
+		for (int i = 0; i < (int)res.size(); i++){
+			for (int j = 1; j <= n; j++){
+				cout << res[i][j] << " ";
+			}
+			cout << u << endl;
+		}
+		cout << res.size();
+	}
+	return 0;
 }
